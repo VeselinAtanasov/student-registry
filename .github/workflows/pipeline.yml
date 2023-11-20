@@ -24,3 +24,5 @@ jobs:
       run: npm install
     - name: Run Integration tests
       run: npm run test
+    - name: Re-Run the test
+      run: npm test
