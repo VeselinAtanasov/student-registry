@@ -12,17 +12,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+
     steps:
-    - name: Checkout Code - clone the repo
-      uses: actions/checkout@v3
-    - name: Use Node.js 18
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
-        node-version: 18.x
+        node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Install the dependencies - build the app
       run: npm install
     - name: Run Integration tests
       run: npm run test
-    - name: Re-Run the test
-      run: npm test
