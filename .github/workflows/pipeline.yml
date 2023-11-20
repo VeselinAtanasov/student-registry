@@ -31,6 +31,7 @@ jobs:
       run: npm run test
 
   deploy: 
+    needs: build # thus we say that this job will wait 'build' job to finish successfully and then will be executed, i.e. both jobs will NOT run in parallel
     runs-on: ubuntu-latest
 
     steps:
