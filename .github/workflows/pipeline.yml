@@ -1,5 +1,5 @@
 
-name: Build and Run Test
+name: Build, Run Test and Deploy
 
 on: 
   push:
@@ -29,3 +29,14 @@ jobs:
       run: npm install
     - name: Run Integration tests
       run: npm run test
+
+  deploy: 
+    needs: build # thus we say that this job will wait 'build' job to finish successfully and then will be executed, i.e. both jobs will NOT run in parallel
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy To Production
+      uses: johnbeynon/render-deploy-action@v0.0.8
+      with:
+        service-id: ${{ secrets.MY_RENDER_SERVICE_ID }} # we should define those values in GitHub repo- Settings-> Secrets and Variables -> click New repository secret
+        api-key: ${{ secrets.MY_RENDER_API_KEY }}
