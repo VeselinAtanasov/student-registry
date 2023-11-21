@@ -32,6 +32,8 @@ jobs:
 
   deploy: 
     needs: build # thus we say that this job will wait 'build' job to finish successfully and then will be executed, i.e. both jobs will NOT run in parallel
+    # by adding the row below we ensure that the deploy will not be started automtically , but will require menual start, thus we ensure Continiousl delivery
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
